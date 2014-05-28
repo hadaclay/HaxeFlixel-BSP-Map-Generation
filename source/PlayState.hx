@@ -119,7 +119,7 @@ class PlayState extends FlxState
                 if (l.leftChild == null && l.rightChild == null) // If not split
                 {
                     // If this leaf is too big, or 75% chance
-                    if (l.width > Registry.MAX_LEAF_SIZE || l.height > Registry.MAX_LEAF_SIZE || FlxRandom.float() > 0.25)
+                    if (l.width > Leaf.MAX_LEAF_SIZE || l.height > Leaf.MAX_LEAF_SIZE || FlxRandom.float() > 0.25)
                     {
                         if (l.split()) // split the leaf!
                         {

@@ -46,14 +46,14 @@ class Leaf
         else if (height > width && width / height >= 0.05)
             splitH = true;
 
-        var max:Int = (splitH ? height : width) - MIN_LEAF_SIZE; // determine the maximum height or width
+        var max = (splitH ? height : width) - MIN_LEAF_SIZE; // determine the maximum height or width
         if (max <= MIN_LEAF_SIZE)
             return false; // the area is too small to split any more...
 
-        // Determine where to split
-        var split:Int = Std.int(Registry.randomNumber(MIN_LEAF_SIZE, max)); // determine where we're going to split
+        // Where to split
+        var split = Std.int(randomNumber(MIN_LEAF_SIZE, max)); // determine where we're going to split
 
-        // Create left/right children based on split direction
+        // Create children based on split direction
         if (splitH)
         {
             leftChild = new Leaf(x, y, width, split);
@@ -64,12 +64,12 @@ class Leaf
             leftChild = new Leaf(x, y, split, height);
             rightChild = new Leaf(x + split, y, width - split, height);
         }
+
         return true;
     }
 
     public function getRoom():Rectangle
     {
-        // Iterate through all Leafs to find room, if one exists
         if (room != null)
             return room;
         else
@@ -125,9 +125,9 @@ class Leaf
             var roomSize:Point;
             var roomPos:Point;
             // Room can be between 3x3 tiles to the leaf size - 2
-            roomSize = new Point(Registry.randomNumber(3, width - 2), Registry.randomNumber(3, height - 2));
+            roomSize = new Point(randomNumber(3, width - 2), randomNumber(3, height - 2));
             // Place the room within leaf, but not against sides (would merge)
-            roomPos = new Point(Registry.randomNumber(1, width - roomSize.x - 1), Registry.randomNumber(1, height - roomSize.y - 1));
+            roomPos = new Point(randomNumber(1, width - roomSize.x - 1), randomNumber(1, height - roomSize.y - 1));
             room = new Rectangle(x + roomPos.x, y + roomPos.y, roomSize.x, roomSize.y);
         }
     }
@@ -137,8 +137,8 @@ class Leaf
         // Connects 2 rooms together with hallways
         halls = new Array<Rectangle>();
 
-        var point1:Point = new Point(Registry.randomNumber(L.left + 1, L.right - 2), Registry.randomNumber(L.top + 1, L.bottom - 2));
-        var point2:Point = new Point(Registry.randomNumber(R.left + 1, R.right - 2), Registry.randomNumber(R.top + 1, R.bottom - 2));
+        var point1:Point = new Point(randomNumber(L.left + 1, L.right - 2), randomNumber(L.top + 1, L.bottom - 2));
+        var point2:Point = new Point(randomNumber(R.left + 1, R.right - 2), randomNumber(R.top + 1, R.bottom - 2));
 
         var w = point2.x - point1.x;
         var h = point2.y - point1.y;
@@ -219,6 +219,18 @@ class Leaf
             {
                 halls.push(new Rectangle(point1.x, point1.y, 1, Math.abs(h)));
             }
+        }
+    }
+
+    static public function randomNumber(Min:Float, Max:Float, Absolute = false):Float
+    {
+        if (!Absolute)
+        {
+            return Math.floor(FlxRandom.float() * (1 + Max - Min) + Min);
+        }
+        else
+        {
+            return Math.abs(Math.floor(FlxRandom.float() * (1 + Max - Min) + Min));
         }
     }
 }

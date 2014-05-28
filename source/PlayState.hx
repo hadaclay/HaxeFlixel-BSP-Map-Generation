@@ -151,9 +151,9 @@ class PlayState extends FlxState
         }
 
         // Randomly pick room for player to start in
-        var startRoom:Rectangle = _rooms[Std.int(Registry.randomNumber(0, _rooms.length - 1))];
+        var startRoom:Rectangle = _rooms[Std.int(Leaf.randomNumber(0, _rooms.length - 1))];
         // And pick random tile for player to start on
-        var _playerStart:Point = new Point(Registry.randomNumber(startRoom.x, startRoom.x + startRoom.width - 1), Registry.randomNumber(startRoom.y, startRoom.y + startRoom.height - 1));
+        var _playerStart:Point = new Point(Leaf.randomNumber(startRoom.x, startRoom.x + startRoom.width - 1), Leaf.randomNumber(startRoom.y, startRoom.y + startRoom.height - 1));
 
         // Move the player sprite to random starting location
         _player.x = _playerStart.x * 16 + 1;
@@ -166,22 +166,22 @@ class PlayState extends FlxState
         _buttonPlaymap.visible = true;
     }
 
-    private function drawHalls(h:Array<Rectangle>):Void
+    private function drawHalls(H:Array<Rectangle>):Void
     {
         // add each hall to the hall vector, and draw the hall onto our mapData
         var r:Rectangle;
-        for (r in h)
+        for (r in H)
         {
             _halls.push(r);
             _mapData.fillRect(r, 0xFFFFFFFF);
         }
     }
 
-    private function drawRoom(r:Rectangle):Void
+    private function drawRoom(R:Rectangle):Void
     {
         // Add this room to room array, then draw onto mapData
-        _rooms.push(r);
-        _mapData.fillRect(r, 0xFFFFFFFF);
+        _rooms.push(R);
+        _mapData.fillRect(R, 0xFFFFFFFF);
     }
 
     override public function update():Void

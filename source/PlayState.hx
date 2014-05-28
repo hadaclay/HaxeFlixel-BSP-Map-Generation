@@ -71,7 +71,7 @@ class PlayState extends FlxState
         _player.visible = true;
 
         // Turn map data into CSV, then make tilemap out of it
-        var newMap:FlxTilemap = new FlxTilemap().loadMap(FlxStringUtil.bitmapToCSV(_mapData), "assets/images/tiles.png", 16, 16, FlxTilemap.OFF, 0, 0, 1);
+        var newMap:FlxTilemap = new FlxTilemap().loadMap(FlxStringUtil.bitmapToCSV(_mapData), "assets/images/tiles.png", 16, 16, FlxTilemap.AUTO, 0, 0, 1);
         if (_map != null)
         {
             // If old map exists, replace with new one
